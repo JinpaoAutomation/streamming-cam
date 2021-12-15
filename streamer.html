@@ -3,32 +3,39 @@
     <title>Streamer</title>
 </head>
 <body>
-    <video autoplay></video>
+    <video autoplay controls loop>        
+        <!-- <source src="/chrome" type="video/mp4"> -->
+        <!-- <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">         -->
+        <source src="" type="video/mp4">
+    </video>
     <script>
         // get video dom element
         const video = document.querySelector('video');
         
         // request access to webcam
-        navigator.mediaDevices.getUserMedia({video: {width: 426, height: 240}}).then((stream) => video.srcObject = stream);
+       navigator.mediaDevices.getUserMedia({video: {width: 720, height: 1080}}).then((stream) => video.srcObject = stream);
         
         // returns a frame encoded in base64
         const getFrame = () => {
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0);
+            // canvas.getContext('2d').drawImage(video, 50, 30);
+            canvas.getContext('2d').drawImage(video, 50, 30);
+            
             const data = canvas.toDataURL('image/png');
             return data;
         }
         const WS_URL = location.origin.replace(/^http/, 'ws');
-        const FPS = 3;
+        const FPS = 60;
         const ws = new WebSocket(WS_URL);
         ws.onopen = () => {
             console.log(`Connected to ${WS_URL}`);
             setInterval(() => {
                 ws.send(getFrame());
-            }, 1000 / FPS);
+            }, 500 / FPS);
         }
+       
     </script>
 </body>
 </html>

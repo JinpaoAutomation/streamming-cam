@@ -32,6 +32,9 @@ wsServer.on('connection', (ws, req) => {
 // HTTP stuff
 app.get('/client', (req, res) => res.sendFile(path.resolve(__dirname, './client.html')));
 app.get('/streamer', (req, res) => res.sendFile(path.resolve(__dirname, './streamer.html')));
+app.get('/chrome', (req, res) => res.sendFile(path.resolve(__dirname, './chrome.mp4')));
+// app.get('/chrome', (req, res) => res.render);
+
 app.get('/', (req, res) => {
     res.send(`
         <a href="streamer">Streamer</a><br>

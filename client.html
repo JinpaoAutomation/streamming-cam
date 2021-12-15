@@ -14,6 +14,7 @@
         ws.onmessage = message => {
             // set the base64 string to the src tag of the image
             img.src = message.data;
+            console.log(message.data);
         }
     </script>
 </body>
